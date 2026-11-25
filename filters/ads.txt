@@ -1,0 +1,89 @@
+! Title: Personal Ad Filters
+! Description: 个人维护的广告域名过滤清单（网络层拦截），uBlock Origin / AdGuard 可直接订阅
+! Version: 2026.11.25
+! Expires: 2 days
+! License: MIT
+! Homepage: https://github.com/a39908646/adblock-filters
+!
+! 说明
+! ----
+! 清单里的域名都是"只下发广告素材/广告脚本"的域，正常网站不会拿它当正经资源用。
+! 少数域名在别处有正经用途（快手 CDN、阿里图片 CDN、Google 统计），
+! 这些一律用 $domain= 限定作用域，只在下面这批站点页面上生效，不祸及其他网站。
+!
+! 随机子域（形如 xxxxx.tronmaster.academy）用整域规则覆盖，不必逐个子域列。
+!
+! 发现漏网的：开 devtools → Network → 按 Size 排序，把大块的第三方域名提 issue / PR。
+
+! ==== 只发广告的域：全球拦截 ====
+
+||9splt.com^
+||jads.co^
+||nettrck.store^
+||storagexhd.com^
+||xhlive.net^
+||rmhfrtnd.com^
+||mintab.cn^
+||xxkid.com^
+||91selfie.com^
+||kk6140.shop^
+||dzmm.site^
+||hpv112.com^
+||9p58b.com^
+||mcwww.top^
+||yqxtm.com^
+||iyijiankang.com^
+||yuelongyy.com^
+||sjhf120.com^
+||91kp.net^
+||91kp.com^
+||doubleclick.net^
+||googleadservices.com^
+||googlesyndication.com^
+||taboola.com^
+||outbrain.com^
+||adnxs.com^
+||rubiconproject.com^
+||criteo.com^
+||casalemedia.com^
+||pubmatic.com^
+||openx.net^
+||adsterra.com^
+||popads.net^
+||popcash.net^
+||propellerads.com^
+||trafficjunky.net^
+||juicyads.com^
+||exoclick.com^
+||adskeeper.com^
+||mgid.com^
+||revcontent.com^
+||adcash.com^
+||hilltopads.net^
+||adsafeprotected.com^
+||amazon-adsystem.com^
+||adroll.com^
+||zedo.com^
+||jhgfdsaqpwoeiru.cc^
+||zbwvyr.com^
+||fytk1.com^
+||qpe27.top^
+||lfyb.cc^
+||m6wk2.com^
+||agivizj.com^
+||hnwpt.com^
+||hixjaic444555.info^
+||cryptosign.academy^
+||tronmaster.academy^
+||gjkxjksalgsda.academy^
+||ganyiwanghe.com^
+||16.162.139.246^
+||95.40.171.48^
+
+! ==== 别处有正经用途的域：只在下面这批站点页面上拦 ====
+! 站点镜像域名换得比清单勤，新增镜像时记得同步这一行。
+
+||kwai.net^$domain=91porn.com|9p234.com|sp2026.com|9p9.xyz|btc620.com|9p52.com
+||img.alicdn.com^$domain=91porn.com|9p234.com|sp2026.com|9p9.xyz|btc620.com|9p52.com
+||www.googletagmanager.com^$domain=91porn.com|9p234.com|sp2026.com|9p9.xyz|btc620.com|9p52.com
+||www.google-analytics.com^$domain=91porn.com|9p234.com|sp2026.com|9p9.xyz|btc620.com|9p52.com
