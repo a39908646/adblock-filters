@@ -1,0 +1,6 @@
+# 过滤清单必须是 LF：Windows 上自动转 CRLF 会让 diff/订阅内容平白变化
+* text=auto eol=lf
+
+*.txt text eol=lf
+*.js text eol=lf
+*.yml text eol=lf
