@@ -53,17 +53,23 @@ for (const file of fs.readdirSync(dir).filter((f) => f.endsWith('.txt'))) {
         }
 
         const [pattern, optText] = line.split('$');
-        if (!/\^$/.test(pattern)) {
-            errors.push(`${file}:${n}  规则尾部缺少 ^: ${line}`);
+        // 两种形态：整域 `||host^`，或路径规则 `||host/path*pattern`（用于只拦某个广告素材路径）
+        const pathRule = pattern.includes('/');
+        if (!pathRule && !/\^$/.test(pattern)) {
+            errors.push(`${file}:${n}  整域规则尾部缺少 ^: ${line}`);
+            return;
+        }
+        if (pathRule && !/^\|\|[a-z0-9.-]+\//i.test(pattern)) {
+            errors.push(`${file}:${n}  路径规则必须是 ||域名/路径 形式: ${line}`);
             return;
         }
 
-        const host = pattern.slice(2, -1).toLowerCase();
+        const host = (pathRule ? pattern.slice(2).split('/')[0] : pattern.slice(2, -1)).toLowerCase();
         if (!HOST.test(host) && !IP.test(host)) {
             errors.push(`${file}:${n}  不是合法域名/IP: ${host}`);
             return;
         }
-        if (host !== pattern.slice(2, -1)) {
+        if (host !== (pathRule ? pattern.slice(2).split('/')[0] : pattern.slice(2, -1))) {
             warns.push(`${file}:${n}  域名大小写混用，建议全小写: ${host}`);
         }
 
@@ -73,7 +79,7 @@ for (const file of fs.readdirSync(dir).filter((f) => f.endsWith('.txt'))) {
         }
         const scoped = opts.some((o) => o.startsWith('domain='));
 
-        const key = host + '|' + (scoped ? 'scoped' : 'global');
+        const key = host + '|' + (scoped ? 'scoped' : 'global') + '|' + (pathRule ? pattern : '');
         if (!scoped) {
             if (seen.has(key)) {
                 errors.push(`${file}:${n}  重复的全局规则 ${host}（首次出现在第 ${seen.get(key)} 行）`);
